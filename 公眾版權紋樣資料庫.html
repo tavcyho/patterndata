@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>公眾版權紋樣資料庫</title>
+<style>
+:root{
+  --bg:#f4efe6; --panel:#ebe4d6; --panel2:#e2d9c7; --ink:#2b2620; --ink2:#6b6152; --line:#cfc4ae;
+  --accent:#8a4b2a; --accent2:#b8703f; --tilebg:#fbf8f1; --like:#c2413b;
+  --font: "Noto Serif TC","Source Han Serif TC","PMingLiU","Songti TC",serif;
+  --sans: "Noto Sans TC","Microsoft JhengHei","PingFang TC",system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);display:flex;flex-direction:column;overflow:hidden}
+header{display:flex;align-items:center;gap:16px;padding:10px 18px;border-bottom:1px solid var(--line);background:var(--panel);flex:0 0 auto}
+header h1{font:600 20px/1 var(--font);margin:0;letter-spacing:.08em;white-space:nowrap}
+header h1 small{font:12px var(--sans);color:var(--ink2);letter-spacing:0;margin-left:10px}
+#q{flex:1 1 260px;max-width:460px;padding:8px 12px;border:1px solid var(--line);border-radius:6px;background:#fff;font:14px var(--sans);color:var(--ink)}
+#q:focus{outline:2px solid var(--accent2);outline-offset:0}
+.ctl{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--ink2)}
+.ctl input[type=range]{width:110px;accent-color:var(--accent)}
+button,.btn{font:13px var(--sans);border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:6px;padding:7px 12px;cursor:pointer}
+button:hover{background:var(--panel2)}
+button:focus-visible,a:focus-visible,select:focus-visible{outline:2px solid var(--accent2);outline-offset:1px}
+main{flex:1 1 auto;display:flex;min-height:0}
+aside{flex:0 0 250px;overflow:auto;border-right:1px solid var(--line);background:var(--panel);padding:12px 0 24px}
+aside h2{font:600 12px var(--sans);letter-spacing:.14em;color:var(--ink2);margin:14px 18px 6px;text-transform:none}
+aside h2.fold{cursor:pointer;user-select:none;display:flex;align-items:baseline;gap:6px;margin:14px 0 6px;padding:4px 18px}
+aside h2.fold:hover{background:var(--panel2)}
+aside h2.fold .car{display:inline-block;width:10px;transition:transform .12s}
+aside h2.fold[aria-expanded="true"] .car{transform:rotate(90deg)}
+aside h2.fold small{font:400 11.5px var(--sans);letter-spacing:0;color:var(--accent);margin-left:auto;max-width:110px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.nav[hidden]{display:none}
+.nav{list-style:none;margin:0;padding:0}
+.nav li{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:8px 18px;cursor:pointer;font-size:14px;border-left:3px solid transparent}
+.nav li:hover{background:var(--panel2)}
+.nav li.on{background:var(--panel2);border-left-color:var(--accent);font-weight:600}
+.nav li .n{font-size:12px;color:var(--ink2);font-variant-numeric:tabular-nums}
+.nav li.book{font-size:12.5px;line-height:1.35}
+.nav li.book span.t{flex:1}
+.nav li .heart{color:var(--like)}
+#likewrap{border-bottom:1px solid var(--line);padding-bottom:10px;margin-bottom:4px}
+#content{flex:1 1 auto;overflow:auto;padding:16px 20px 60px;position:relative}
+#status{font-size:13px;color:var(--ink2);margin:0 0 12px}
+#grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(var(--tsz,250px),1fr));gap:12px}
+.tile{position:relative;background:var(--tilebg);border:1px solid var(--line);border-radius:6px;aspect-ratio:1/1;overflow:hidden;cursor:pointer;padding:0;display:block}
+.tile img{position:absolute;inset:6px;width:calc(100% - 12px);height:calc(100% - 12px);object-fit:contain;display:block}
+.tile:hover{border-color:var(--accent2);box-shadow:0 2px 10px rgba(80,50,20,.18)}
+.tile .cap{position:absolute;left:0;right:0;bottom:0;padding:14px 8px 5px;font-size:11px;color:#fff;background:linear-gradient(transparent,rgba(30,20,10,.72));opacity:0;transition:opacity .12s;pointer-events:none;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tile:hover .cap,.tile:focus-visible .cap{opacity:1}
+.tile .lk{position:absolute;top:5px;right:5px;width:30px;height:30px;border-radius:50%;border:0;background:rgba(255,255,255,.85);color:#7a6f5f;font-size:16px;line-height:30px;padding:0;text-align:center;opacity:0}
+.tile:hover .lk,.tile .lk.on{opacity:1}
+.tile .lk.on{color:var(--like)}
+#sentinel{height:1px}
+.empty{padding:60px 0;text-align:center;color:var(--ink2)}
+/* lightbox */
+#lb{position:fixed;inset:0;background:rgba(28,22,15,.92);display:none;z-index:20}
+#lb.on{display:flex}
+#lb .stage{flex:1 1 auto;display:flex;align-items:center;justify-content:center;min-width:0;padding:20px;position:relative}
+#lb .stage img{cursor:zoom-in;max-width:100%;max-height:100%;object-fit:contain;background:#fbf8f1;border-radius:4px;box-shadow:0 8px 40px rgba(0,0,0,.5)}
+#lb .side{flex:0 0 290px;background:var(--panel);padding:20px 18px;overflow:auto;display:flex;flex-direction:column;gap:12px}
+#lb h3{font:600 15px/1.4 var(--font);margin:0}
+#lb dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:6px 12px;font-size:13px}
+#lb dt{color:var(--ink2)} #lb dd{margin:0;word-break:break-all}
+#lb select{width:100%;padding:7px;border:1px solid var(--line);border-radius:6px;background:#fff;font:13px var(--sans)}
+#lb .row{display:flex;gap:8px;flex-wrap:wrap}
+#lb .nv{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:64px;border:0;border-radius:6px;background:rgba(255,255,255,.14);color:#fff;font-size:26px;cursor:pointer;padding:0}
+#lb .nv:hover{background:rgba(255,255,255,.28)}
+#lb .prev{left:8px} #lb .next{right:8px}
+#lb .x{position:absolute;top:10px;right:10px;width:40px;height:40px;border-radius:50%;border:0;background:rgba(255,255,255,.14);color:#fff;font-size:20px;cursor:pointer;padding:0;z-index:2}
+.btn.like.on{background:var(--like);color:#fff;border-color:var(--like)}
+.hint{font-size:12px;color:var(--ink2);line-height:1.6}
+@media (max-width:820px){
+  aside{flex-basis:170px} #lb{flex-direction:column} #lb .side{flex-basis:auto;max-height:42%}
+  .ctl.size{display:none}
+}
+</style>
+</head>
+<body>
+<header>
+  <h1>公眾版權紋樣資料庫<small id="ver"></small></h1>
+  <input id="q" type="search" placeholder="搜尋：書名、頁碼、分類…" aria-label="搜尋">
+  <label class="ctl size">縮圖大小 <input id="size" type="range" min="160" max="480" value="250"></label>
+  <button id="export" title="把「我的喜歡」與手動改過的分類存成檔案，交給 Claude 就能併入資料庫">匯出我的整理</button>
+</header>
+<main>
+  <aside>
+    <ul class="nav" id="likewrap"></ul>
+    <h2 class="fold" id="cath" role="button" tabindex="0" aria-expanded="true" title="點一下展開／收合"><span class="car">▸</span>分類<small id="catsel"></small></h2>
+    <ul class="nav" id="cats"></ul>
+    <h2 class="fold" id="bkh" role="button" tabindex="0" aria-expanded="false" title="點一下展開／收合"><span class="car">▸</span>來源書籍<small id="bksel"></small></h2>
+    <ul class="nav" id="books" hidden></ul>
+    <h2 class="fold" id="kindh" role="button" tabindex="0" aria-expanded="false" title="點一下展開／收合"><span class="car">▸</span>圖像類型<small id="kindsel"></small></h2>
+    <ul class="nav" id="kinds" hidden></ul>
+  </aside>
+  <section id="content">
+    <p id="status"></p>
+    <div id="grid" role="list"></div>
+    <div id="sentinel"></div>
+  </section>
+</main>
+
+<div id="lb" role="dialog" aria-modal="true" aria-label="頁面檢視">
+  <div class="stage">
+    <button class="x" id="lbx" aria-label="關閉">✕</button>
+    <button class="nv prev" id="lbp" aria-label="上一張">‹</button>
+    <img id="lbimg" alt="">
+    <button class="nv next" id="lbn" aria-label="下一張">›</button>
+  </div>
+  <div class="side">
+    <h3 id="lbt"></h3>
+    <dl>
+      <dt>類型</dt><dd id="lbk"></dd>
+      <dt>來源</dt><dd id="lbb"></dd>
+      <dt>頁碼</dt><dd id="lbpg"></dd>
+      <dt>編號</dt><dd id="lbid"></dd>
+      <dt>尺寸</dt><dd id="lbsz"></dd>
+    </dl>
+    <label for="lbcat" style="font-size:13px;color:var(--ink2)">分類（可手動改）</label>
+    <select id="lbcat"></select>
+    <div class="row">
+      <button class="btn like" id="lbl">♡ 喜歡</button>
+      <a class="btn" id="lbd" download>下載 JPG</a>
+    </div>
+    <p class="hint">← → 切換　L 喜歡　Esc 關閉<br>點圖片可在新分頁放大檢視。<br>手動改的分類與「喜歡」存在這台電腦的瀏覽器裡；按右上「匯出我的整理」可備份。</p>
+  </div>
+</div>
+
+<script src="紋樣資料庫_data/meta.js"></script>
+<script>
+"use strict";
+const P = window.PDB;
+const CATS = P.cats;                       // [name,...]
+const $ = s => document.querySelector(s);
+const store = {
+  get(k, d){ try{ const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; }catch(e){ return d; } },
+  set(k, v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
+};
+let likes = new Set(store.get("pdb_likes", []));
+let over = store.get("pdb_cat", {});       // id -> category name
+const BATCH = 100;
+
+// ---- items -----------------------------------------------------------------
+const KINDS = P.kinds || [];
+const items = P.items.map(a => ({id:a[0], bi:a[1], page:a[2], ci:a[3], w:a[4], h:a[5], ti:a[6], fi:a[7], k:a[8]}));
+const byId = new Map(items.map(it => [it.id, it]));
+const catOf = it => over[it.id] || CATS[it.ci];
+const bookOf = it => P.books[it.bi];
+const kindOf = it => (it.k != null && KINDS[it.k]) || bookOf(it).kind;
+
+// ---- shard loading (script tags, works from file://) ------------------------
+const thumbs = {}, fulls = {};
+const pending = {};
+function loadShard(file, kind){
+  if (pending[file]) return pending[file];
+  pending[file] = new Promise((res, rej) => {
+    const s = document.createElement("script");
+    s.src = "紋樣資料庫_data/" + file;
+    s.onload = () => res();
+    s.onerror = () => rej(new Error("載入失敗：" + file));
+    document.head.appendChild(s);
+  });
+  return pending[file];
+}
+window.PDBT = (file, obj) => { Object.assign(thumbs, obj); };
+window.PDBF = (file, obj) => { Object.assign(fulls, obj); };
+const needThumbs = list => Promise.all([...new Set(list.map(it => P.th[it.ti]))].map(f => loadShard(f)));
+
+// ---- filtering -------------------------------------------------------------
+const st = {cat:"__all", book:-1, kind:"", q:"", list:[], shown:0, busy:false};
+function matches(it){
+  const c = catOf(it);
+  if (st.cat === "__like"){ if (!likes.has(it.id)) return false; }
+  else if (st.cat !== "__all" && c !== st.cat) return false;
+  if (st.book >= 0 && it.bi !== st.book) return false;
+  if (st.kind && kindOf(it) !== st.kind) return false;
+  if (st.q){
+    const b = bookOf(it);
+    const hay = (b.title + " " + b.short + " " + kindOf(it) + " " + it.id + " p" + it.page + " 第" + it.page + "頁 " + c).toLowerCase();
+    return st.q.split(/\s+/).every(t => hay.includes(t));
+  }
+  return true;
+}
+function refilter(){
+  st.list = items.filter(matches);
+  st.shown = 0;
+  $("#grid").innerHTML = "";
+  $("#status").textContent = st.list.length ? "共 " + st.list.length.toLocaleString() + " 頁" : "";
+  if (!st.list.length){
+    $("#grid").innerHTML = '<div class="empty">' + (st.cat === "__like" ? "還沒有喜歡的頁面。點縮圖右上角的 ♡ 就會收進來。" : "沒有符合的頁面。") + '</div>';
+  }
+  $("#content").scrollTop = 0;
+  renderNav();
+  more();
+}
+
+// ---- grid ------------------------------------------------------------------
+function tileEl(it){
+  const t = document.createElement("div");
+  t.className = "tile"; t.tabIndex = 0; t.setAttribute("role", "listitem"); t.dataset.id = it.id;
+  const img = document.createElement("img");
+  img.src = thumbs[it.id] || ""; img.alt = bookOf(it).short + " 第" + it.page + "頁"; img.loading = "lazy"; img.decoding = "async";
+  const cap = document.createElement("div"); cap.className = "cap"; cap.textContent = bookOf(it).short + " · p." + it.page + " · " + catOf(it);
+  const lk = document.createElement("button"); lk.className = "lk" + (likes.has(it.id) ? " on" : ""); lk.textContent = likes.has(it.id) ? "♥" : "♡";
+  lk.setAttribute("aria-label", "喜歡");
+  lk.onclick = e => { e.stopPropagation(); toggleLike(it.id); };
+  t.append(img, cap, lk);
+  t.onclick = () => openLB(it.id);
+  t.onkeydown = e => { if (e.key === "Enter") openLB(it.id); };
+  return t;
+}
+async function more(){
+  if (st.busy || st.shown >= st.list.length) return;
+  st.busy = true;
+  const my = st.list;
+  const chunk = my.slice(st.shown, st.shown + BATCH);
+  try{ await needThumbs(chunk); }catch(e){ $("#status").textContent = e.message; }
+  if (my === st.list){                        // filter unchanged while loading
+    const frag = document.createDocumentFragment();
+    chunk.forEach(it => frag.appendChild(tileEl(it)));
+    $("#grid").appendChild(frag);
+    st.shown += chunk.length;
+  }
+  st.busy = false;
+  if (my === st.list) check();
+}
+function check(){
+  const c = $("#content"), s = $("#sentinel");
+  if (st.shown < st.list.length && s.getBoundingClientRect().top < c.getBoundingClientRect().bottom + 600) more();
+}
+$("#content").addEventListener("scroll", check);
+window.addEventListener("resize", check);
+
+// ---- sidebar ---------------------------------------------------------------
+function counts(){
+  const cc = {}, bc = {}, kc = {};
+  items.forEach(it => {
+    const c = catOf(it);
+    if ((st.book < 0 || it.bi === st.book) && (!st.kind || kindOf(it) === st.kind)) cc[c] = (cc[c] || 0) + 1;
+    if ((st.cat === "__all" || (st.cat === "__like" ? likes.has(it.id) : c === st.cat)) && (!st.kind || kindOf(it) === st.kind)) bc[it.bi] = (bc[it.bi] || 0) + 1;
+    if ((st.cat === "__all" || (st.cat === "__like" ? likes.has(it.id) : c === st.cat)) && (st.book < 0 || it.bi === st.book)) kc[kindOf(it)] = (kc[kindOf(it)] || 0) + 1;
+  });
+  return {cc, bc, kc};
+}
+function li(label, n, on, fn, cls, pre){
+  const e = document.createElement("li"); if (on) e.classList.add("on"); if (cls) e.classList.add(cls);
+  e.tabIndex = 0;
+  const t = document.createElement("span"); t.className = "t"; t.textContent = label;
+  if (pre){ const h = document.createElement("span"); h.className = "heart"; h.textContent = pre + " "; t.prepend(h); }
+  const c = document.createElement("span"); c.className = "n"; c.textContent = n.toLocaleString();
+  e.append(t, c); e.onclick = fn; e.onkeydown = ev => { if (ev.key === "Enter") fn(); };
+  return e;
+}
+function renderNav(){
+  const {cc, bc, kc} = counts();
+  const lw = $("#likewrap"); lw.innerHTML = "";
+  lw.append(li("我的喜歡", likes.size, st.cat === "__like", () => setCat("__like"), "", "♥"));
+  const cats = $("#cats"); cats.innerHTML = "";
+  if (st.cat !== "__all") cats.append(li("✕ 取消分類篩選", 0, false, () => setCat("__all"), "cat"));
+  CATS.forEach(c => { if (cc[c]) cats.append(li(c, cc[c], st.cat === c, () => setCat(c))); });
+  Object.keys(cc).filter(c => !CATS.includes(c)).forEach(c => cats.append(li(c, cc[c], st.cat === c, () => setCat(c))));
+  $("#catsel").textContent = (st.cat !== "__all" && st.cat !== "__like") ? st.cat : "";
+  const bk = $("#books"); bk.innerHTML = "";
+  if (st.book >= 0) bk.append(li("✕ 取消書籍篩選", 0, false, () => { st.book = -1; refilter(); }, "book"));
+  P.books.forEach((b, i) => { if (bc[i] || st.book === i) bk.append(li(b.short, bc[i] || 0, st.book === i, () => { st.book = st.book === i ? -1 : i; refilter(); }, "book")); });
+  $("#bksel").textContent = st.book >= 0 ? P.books[st.book].short : "";
+  const kd = $("#kinds"); kd.innerHTML = "";
+  const ktot = Object.values(kc).reduce((a, b) => a + b, 0);
+  kd.append(li("全部類型", ktot, st.kind === "", () => { st.kind = ""; refilter(); }));
+  const korder = KINDS.concat(Object.keys(kc).filter(k => !KINDS.includes(k)));
+  korder.forEach(k => { if (kc[k] || st.kind === k) kd.append(li(k, kc[k] || 0, st.kind === k, () => { st.kind = st.kind === k ? "" : k; refilter(); })); });
+  $("#kindsel").textContent = st.kind || "";
+}
+function setCat(c){ st.cat = c; refilter(); }
+function makeFold(hid, lid){
+  const h = $(hid);
+  function fold(){ const open = h.getAttribute("aria-expanded") !== "true"; h.setAttribute("aria-expanded", open); $(lid).hidden = !open; }
+  h.onclick = fold; h.onkeydown = e => { if (e.key === "Enter" || e.key === " "){ e.preventDefault(); fold(); } };
+}
+makeFold("#cath", "#cats");
+makeFold("#bkh", "#books");
+makeFold("#kindh", "#kinds");
+$("#q").addEventListener("input", e => { st.q = e.target.value.trim().toLowerCase(); clearTimeout(window.__qt); window.__qt = setTimeout(refilter, 160); });
+$("#size").addEventListener("input", e => { document.documentElement.style.setProperty("--tsz", e.target.value + "px"); check(); });
+
+// ---- likes / overrides -----------------------------------------------------
+function toggleLike(id){
+  if (likes.has(id)) likes.delete(id); else likes.add(id);
+  store.set("pdb_likes", [...likes]);
+  document.querySelectorAll('.tile[data-id="' + CSS.escape(id) + '"] .lk').forEach(b => { const on = likes.has(id); b.classList.toggle("on", on); b.textContent = on ? "♥" : "♡"; });
+  if (lbId === id) paintLB();
+  if (st.cat === "__like" && !likes.has(id) && !lbOpen()) refilter(); else renderNav();
+}
+$("#export").onclick = () => {
+  const blob = new Blob([JSON.stringify({exported:new Date().toISOString(), likes:[...likes], category_overrides:over}, null, 1)], {type:"application/json"});
+  const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = "紋樣資料庫_我的整理.json"; a.click();
+  setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+};
+
+// ---- lightbox --------------------------------------------------------------
+let lbId = null;
+const lbOpen = () => $("#lb").classList.contains("on");
+const lbSel = $("#lbcat");
+CATS.forEach(c => { const o = document.createElement("option"); o.value = c; o.textContent = c; lbSel.append(o); });
+async function openLB(id){
+  lbId = id; $("#lb").classList.add("on"); paintLB();
+  const it = byId.get(id);
+  try{
+    await loadShard(P.fu[it.fi]);
+    if (lbId === id && fulls[id]){ $("#lbimg").src = fulls[id]; $("#lbd").href = fulls[id]; $("#lbd").download = id + ".jpg"; }
+  }catch(e){ $("#lbsz").textContent = e.message; }
+}
+$("#lbimg").addEventListener("click", () => {
+  const u = fulls[lbId]; if (!u) return;
+  try{
+    const bin = atob(u.split(",")[1]); const a = new Uint8Array(bin.length);
+    for (let i = 0; i < bin.length; i++) a[i] = bin.charCodeAt(i);
+    window.open(URL.createObjectURL(new Blob([a], {type:"image/jpeg"})), "_blank");
+  }catch(e){}
+});
+function paintLB(){
+  const it = byId.get(lbId); if (!it) return;
+  const b = bookOf(it);
+  $("#lbimg").src = fulls[lbId] || thumbs[lbId] || "";
+  $("#lbt").textContent = catOf(it);
+  $("#lbk").textContent = kindOf(it); $("#lbb").textContent = b.title; $("#lbpg").textContent = "第 " + it.page + " 頁"; $("#lbid").textContent = it.id;
+  $("#lbsz").textContent = it.w + " × " + it.h + " px（整頁圖檔）";
+  lbSel.value = catOf(it);
+  if (!CATS.includes(catOf(it))){ const o = document.createElement("option"); o.value = o.textContent = catOf(it); lbSel.append(o); lbSel.value = catOf(it); }
+  const on = likes.has(lbId); const bt = $("#lbl"); bt.classList.toggle("on", on); bt.textContent = on ? "♥ 已喜歡" : "♡ 喜歡";
+  $("#lbd").href = fulls[lbId] || thumbs[lbId] || ""; $("#lbd").download = lbId + ".jpg";
+}
+function step(d){
+  const i = st.list.findIndex(it => it.id === lbId); if (i < 0) return;
+  const j = i + d; if (j < 0 || j >= st.list.length) return;
+  if (j >= st.shown - 3) more();
+  needThumbs([st.list[j]]).then(() => openLB(st.list[j].id));
+}
+function closeLB(){ $("#lb").classList.remove("on"); lbId = null; if (st.cat === "__like") refilter(); }
+$("#lbx").onclick = closeLB; $("#lbp").onclick = () => step(-1); $("#lbn").onclick = () => step(1);
+$("#lbl").onclick = () => toggleLike(lbId);
+$("#lb").addEventListener("click", e => { if (e.target.classList.contains("stage")) closeLB(); });
+lbSel.onchange = () => {
+  const it = byId.get(lbId); const v = lbSel.value;
+  if (v === CATS[it.ci]) delete over[lbId]; else over[lbId] = v;
+  store.set("pdb_cat", over); paintLB(); renderNav();
+};
+document.addEventListener("keydown", e => {
+  if (!lbOpen()) return;
+  if (e.target.tagName === "SELECT") { if (e.key === "Escape") closeLB(); return; }
+  if (e.key === "Escape") closeLB();
+  else if (e.key === "ArrowLeft") step(-1);
+  else if (e.key === "ArrowRight") step(1);
+  else if (e.key.toLowerCase() === "l") toggleLike(lbId);
+});
+
+$("#ver").textContent = "更新 " + P.updated + " · " + items.length.toLocaleString() + " 頁 · " + P.books.length + " 本書";
+refilter();
+</script>
+</body>
+</html>

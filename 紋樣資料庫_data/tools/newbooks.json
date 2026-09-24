@@ -1,0 +1,216 @@
+{
+ "art_stucco": {
+  "file": "ArtDecorativeStuccoAndComposite0001(照片).pdf",
+  "kind": "照片",
+  "title": "Art Decorative Stucco & Composite Co. — 灰泥與複合裝飾目錄",
+  "short": "Art Stucco 灰泥飾件"
+ },
+ "braendli": {
+  "file": "BraendliAndCo-Cca77432(照片).pdf",
+  "kind": "照片",
+  "title": "Braendli & Co. — 灰泥・石膏裝飾目錄",
+  "short": "Braendli 灰泥飾件"
+ },
+ "canadian": {
+  "file": "Canadian Gypsum and Albastine Limited(黑白稿).pdf",
+  "kind": "黑白稿",
+  "title": "Canadian Gypsum & Alabastine Ltd — 模板圖樣目錄",
+  "short": "Canadian Gypsum 模板"
+ },
+ "detroit": {
+  "file": "DetroitDecorativeSupplyCo.Cca18491(照片).pdf",
+  "kind": "照片",
+  "title": "Detroit Decorative Supply Co. — 裝飾材料目錄",
+  "short": "Detroit 裝飾材料"
+ },
+ "geojackson": {
+  "file": "Geo.JacksonSons-ExamplesOfAFewArchitecturalOrnamentsEtc.Cca35439(一半一半).pdf",
+  "kind": "照片",
+  "title": "Geo. Jackson & Sons — Examples of a Few Architectural Ornaments",
+  "short": "Geo. Jackson 建築飾件"
+ },
+ "illchic": {
+  "file": "illustratedcatal00chic(很多黑白稿).pdf",
+  "kind": "照片",
+  "title": "Illustrated Catalogue of Plastic Ornaments (Chicago) — 石膏與複合材料裝飾圖錄",
+  "short": "Chicago 塑形飾件圖錄"
+ },
+ "livret": {
+  "file": "lelivrettypograp00fond.pdf",
+  "kind": "黑白稿",
+  "title": "Le Livret Typographique — Deberny & Cie 活字樣本",
+  "short": "Deberny 活字樣本"
+ },
+ "mayhew": {
+  "file": "Mayhew, Edward, 1900.pdf",
+  "kind": "黑白稿",
+  "title": "Edward Mayhew (1900) — 裝飾目錄",
+  "short": "Mayhew 1900"
+ },
+ "paintpoint": {
+  "file": "PaintPointProductsc19200001.pdf",
+  "kind": "黑白稿",
+  "title": "Paint Point Products (c.1920)",
+  "short": "Paint Point 1920"
+ },
+ "reeves": {
+  "file": "ReevesSonsLtdCca180178.pdf",
+  "kind": "黑白稿",
+  "title": "Reeves & Sons Ltd — 圖樣目錄",
+  "short": "Reeves & Sons"
+ },
+ "sherwin1": {
+  "file": "Sherwin-WilliamsCo.0001.pdf",
+  "kind": "黑白稿",
+  "title": "Sherwin-Williams Co. — 圖樣目錄 I",
+  "short": "Sherwin-Williams I"
+ },
+ "sherwin2": {
+  "file": "Sherwin-williamsCoCca203008.pdf",
+  "kind": "黑白稿",
+  "title": "Sherwin-Williams Co. — 圖樣目錄 II",
+  "short": "Sherwin-Williams II"
+ },
+ "specimen": {
+  "file": "specimenbookcata00inla.pdf",
+  "kind": "黑白稿",
+  "title": "Specimen Book and Catalog — 印刷用品價目與活字樣本",
+  "short": "Specimen Book 活字樣本"
+ },
+ "stspecialty": {
+  "file": "Stencil Specialty Co.pdf",
+  "kind": "黑白稿",
+  "title": "Stencil Specialty Co. — 模板目錄",
+  "short": "Stencil Specialty"
+ },
+ "stcat1": {
+  "file": "StencilCatalog0001.pdf",
+  "kind": "黑白稿",
+  "title": "Stencil Catalog — 模板目錄",
+  "short": "Stencil Catalog"
+ },
+ "stcatno1": {
+  "file": "StencilCatalogNo1c1920cm22p0001.pdf",
+  "kind": "黑白稿",
+  "title": "Stencil Catalogue No. 1 (c.1920)",
+  "short": "Stencil Catalogue No.1"
+ },
+ "stcatno1b": {
+  "file": "StencilCatalogNo1c1920cm22p0001 (1).pdf",
+  "kind": "黑白稿"
+ },
+ "stencils": {
+  "file": "Stencils0001.pdf",
+  "kind": "黑白稿",
+  "title": "“Blue Label” Stencils — Geo. F. Watson Co., Chicago",
+  "short": "Blue Label 模板"
+ },
+ "stsher": {
+  "file": "stencilsstencilm00sher.pdf",
+  "kind": "黑白稿",
+  "title": "Stencils & Stencil Materials — Sherwin-Williams",
+  "short": "S-W Stencils 模板"
+ },
+ "malm": {
+  "file": "TheMalmHandCutStencils0001.pdf",
+  "kind": "黑白稿",
+  "title": "The Malm Hand-Cut Stencils — Malm Bros. & Co.",
+  "short": "Malm 手刻模板"
+ },
+ "parsons1": {
+  "file": "Thos.ParsonsSonsCca14043.pdf",
+  "kind": "照片",
+  "title": "Thos. Parsons & Sons — Ornamental Decoration (版本 A)",
+  "short": "Parsons 裝飾圖樣 A"
+ },
+ "parsons2": {
+  "file": "ThosParsonsSonsCca189594.pdf",
+  "kind": "照片",
+  "title": "Thos. Parsons & Sons — Ornamental Decoration (版本 B)",
+  "short": "Parsons 裝飾圖樣 B"
+ },
+ "ejc": {
+  "file": "20569222.pdf",
+  "kind": "黑白稿",
+  "title": "EJC Cover Page (待確認內容)",
+  "short": "EJC 待確認"
+ },
+ "artj1851": {
+  "file": "artjournalillust00bradrich.pdf",
+  "kind": "黑白稿",
+  "title": "The Art Journal Illustrated Catalogue — The Industry of All Nations, 1851",
+  "short": "1851 萬國博覽會圖錄"
+ },
+ "artj1862": {
+  "file": "artjournalillust00inte.pdf",
+  "kind": "黑白稿",
+  "title": "The Art Journal Illustrated Catalogue of the International Exhibition, 1862",
+  "short": "1862 國際博覽會圖錄"
+ },
+ "essailabo": {
+  "file": "essaisurlartindu00labo.pdf",
+  "kind": "黑白稿",
+  "title": "Essai sur l'art industriel — Laboulaye",
+  "short": "Laboulaye 工業藝術論"
+ },
+ "paris1855": {
+  "file": "exhibitionofarti00expo.pdf",
+  "kind": "黑白稿",
+  "title": "The Exhibition of Art-Industry in Paris, 1855",
+  "short": "1855 巴黎工業藝術展"
+ },
+ "verneuil": {
+  "file": "gri_33125005959479.pdf",
+  "kind": "黑白稿",
+  "title": "Étude de la plante — Verneuil",
+  "short": "Verneuil 植物紋樣研究"
+ },
+ "universal": {
+  "file": "gri_33125008622538.pdf",
+  "kind": "黑白稿",
+  "title": "The Illustrated Catalogue of the Universal Exhibition",
+  "short": "萬國博覽會圖錄"
+ },
+ "pequegnot": {
+  "file": "gri_33125012603516.pdf",
+  "kind": "黑白稿",
+  "title": "Ornements, vases et décorations d'après les maîtres — Péquégnot",
+  "short": "Péquégnot 名家紋樣集"
+ },
+ "dublin1853b": {
+  "file": "hartley52087934.pdf",
+  "kind": "黑白稿",
+  "title": "The Exhibition of Art-Industry in Dublin (版本 B)",
+  "short": "都柏林工業藝術展 B"
+ },
+ "paris1878": {
+  "file": "illustratedcatal00unse_3.pdf",
+  "kind": "黑白稿",
+  "title": "The Illustrated Catalogue of the Paris International Exhibition, 1878",
+  "short": "1878 巴黎博覽會圖錄"
+ },
+ "beauxarts": {
+  "file": "lesconcoursdarch01ecol.pdf",
+  "kind": "黑白稿",
+  "title": "Les Concours d'architecture de l'École des Beaux-Arts",
+  "short": "美術學院建築競圖"
+ },
+ "centennial1876": {
+  "file": "masterpiecesofce01cent.pdf",
+  "kind": "黑白稿",
+  "title": "The Masterpieces of the Centennial International Exhibition, 1876",
+  "short": "1876 費城百年博覽會"
+ },
+ "day_ornamental": {
+  "file": "ornamentaldesign00dayl_0.pdf",
+  "kind": "黑白稿",
+  "title": "Ornamental Design — Lewis F. Day (版本 A)",
+  "short": "Day 紋樣設計 A"
+ },
+ "day_pattern": {
+  "file": "patterndesignboo00dayl.pdf",
+  "kind": "黑白稿",
+  "title": "Pattern Design — Lewis Foreman Day",
+  "short": "Day 圖案設計"
+ }
+}
